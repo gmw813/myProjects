@@ -1,0 +1,99 @@
+<!--
+ * @Descripttion: 
+ * @Author: GENGMENGWEI
+ * @Date: 2021-03-03 13:37:51
+ * @LastEditTime: 2021-03-04 14:22:10
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li{
+            list-style-type: none;
+        }
+        .list-top{
+            display: flex;
+            justify-content: space-between;
+        }
+        .list-bottom{
+            color: red;
+        }
+		.down{
+			transform: rotate(-90deg);
+		}
+        .hidden{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+    //发送ajax请求
+     window.onload = ()=>{
+         var request = new XMLHttpRequest();
+         request.open('get','http://10.18.23.135:8082/todos/info',true);
+         request.send();
+         request.onreadystatechange = function(){
+            if (request.readyState == 4 && request.status == 200) {
+                // 0：未初始化。new完后;
+                // 1：已打开。对象已经创建并初始化，但还未调用send方法
+                // 2：已发送。已经调用send 方法，但该对象正在等待状态码和头的返回；
+                // 3：正在接收。已经接收了部分数据，但还不能使用该对象的属性和方法，因为状态和响应头不完整；
+                // 4：已加载。所有数据接收完毕
+                //状态为4只表示这次请求完成，成功，错误，都会导致这次请求完成，所以对于这次请求的HTTP状态是需要再次判断的，只有在200，才能确保这才请求得到了服务器正确的响应
+                var res = JSON.parse(request.responseText)
+             if(res.code == 0){
+                console.log(res.data)
+                //创建节点
+                creatElement(res.data)
+                //添加点击事件
+                addClick()
+             }else{
+                console.log('请求失败')
+             }
+            }
+         }
+     }
+     //循环创建节点
+     function creatElement(data){
+        var app = document.getElementById('app');
+        var oul = document.createElement('ul');
+        for ( let i=0;i<data.length;i++){
+            var oli = document.createElement('li');
+            oli.innerHTML =`<div class="list-top">
+                                <div>${data[i].title}</div>
+                                <img src="./course-down.png" width="10px" height="10px"/>
+                            </div>
+                            <div class="list-bottom">${data[i].content}</div>`
+            oul.appendChild(oli);
+        }
+        app.appendChild(oul)
+     }
+     //点击事件展开/隐藏
+     function addClick(){
+        var titleList = document.getElementsByClassName('list-top');
+        for (let title of titleList){
+            // title.addEventListener('click',function(){
+                title.onclick = function(){
+                //0是它自身
+                var content = title.parentNode.children[1];
+                var img = title.getElementsByTagName('img')[0];
+                if(content.classList.contains('hidden')){
+                    content.classList.remove('hidden');
+                    img.classList.remove('down');
+                }else{
+                    content.classList.add('hidden');
+                    img.classList.add('down');
+                }
+            }
+           // })
+        }
+     }
+    </script>
+</body>
+</html>

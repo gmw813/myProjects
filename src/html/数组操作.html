@@ -1,0 +1,90 @@
+<!--
+ * @Descripttion: 
+ * @Author: GENGMENGWEI
+ * @Date: 2021-04-27 15:07:13
+ * @LastEditTime: 2021-04-30 15:36:51
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <script>
+         let arr1 = [1,2,3,4,5,6,7,8,9];
+         //push 数组末尾添加元素
+         arr1.push(10);
+         console.log(arr1);
+         //pop  数组末尾删除元素
+         arr1.pop();
+         console.log(arr1);
+        //shift 数组开头删除元素
+        arr1.shift();
+        console.log(arr1);
+        //unshift  数组开头添加元素
+        arr1.unshift(1);
+        console.log(arr1);
+        //splice  修改、添加、删除元素均可
+        
+        
+         //map 为每个元素执行函数语句并将原数组元素替换为执行结果
+         let arr2 = arr1.map(item=>item*2);
+         // [2,4,6,8,10,12,14,16,18]
+         console.log(arr2)
+
+         //filter  为每个元素执行函数语句并将符合条件的数组返回
+         let arr3 = arr1.filter(item =>item%2==0);
+         //[2,4,6,8]
+         console.log(arr3)
+
+         //reduce  Replace .filter().map() with .reduce()
+         //https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+         
+         //eg1:数组元素累计求和
+         let sum = arr1.reduce((accumulator,currentValue)=>accumulator+currentValue);
+         console.log(sum); //45
+
+        //eg2: 累加对象数组里的值   要累加对象数组中包含的值，必须提供初始值，以便各个item正确通过你的函数。
+        var initialValue = 0;
+        var sum2 = [{x: 1}, {x:2}, {x:3}].reduce(function (accumulator, currentValue) {
+            return accumulator + currentValue.x;
+        },initialValue)
+        console.log(sum2) // logs 6
+
+        //eg3: 数组去重
+        let myArray = ['a', 'b', 'a', 'b', 'c', 'e', 'e', 'c', 'd', 'd', 'd', 'd']
+        let myOrderedArray = myArray.reduce(function (accumulator, currentValue) {
+        if (accumulator.indexOf(currentValue) === -1) {
+            accumulator.push(currentValue)
+        }
+        return accumulator
+        }, [])
+
+        console.log(myOrderedArray)
+
+        //eg4: 按属性对object分类
+        var people = [
+            { name: 'Alice', age: 21 },
+            { name: 'Max', age: 20 },
+            { name: 'Jane', age: 20 }
+        ];
+
+        function groupBy(objectArray, property) {
+            return objectArray.reduce(function (acc, obj) {
+                var key = obj[property];
+                if (!acc[key]) {
+                acc[key] = [];
+                }
+                acc[key].push(obj);
+                return acc;
+            }, {});
+            }
+
+        var groupedPeople = groupBy(people, 'age');
+        console.log(groupedPeople)
+     </script>
+</body>
+</html>

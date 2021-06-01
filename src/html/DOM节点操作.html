@@ -1,0 +1,152 @@
+<!--
+ * @Descripttion: 
+ * @Author: GENGMENGWEI
+ * @Date: 2021-04-23 08:50:50
+ * @LastEditTime: 2021-04-30 14:01:50
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .alert {
+          padding: 15px;
+          border: 1px solid #d6e9c6;
+          border-radius: 4px;
+          color: #3c763d;
+          background-color: #dff0d8;
+        }
+        </style>
+</head>
+<body>
+    <div class="container" id="container"></div>
+    <ul>
+        <li>The</li>
+        <li>test</li>
+      </ul>
+      <ul>
+        <li>has</li>
+        <li>passed</li>
+      </ul>
+    <script>
+        window.onload = function(){
+            document.body.style.background = 'pink';
+            //byclass找出来的为数组结构  是getElements  不是getElement  返回的是多个的集合
+            let page = document.getElementsByClassName('container')[0];
+            let content = document.createElement('span');
+            content.innerText = 'text'.split('');
+            //插入节点
+            page.append(content);
+            //找到元素所有子节点  得到的是一个类数组的可迭代对象 可以使用 for...of迭代  但是无法使用数组的方法（例如filter）
+            console.log(document.body.childNodes);
+            //查找子节点  node返回的是所有节点  包括标签前的空格的文本节点  以及注释节点（若有）等
+            //element返回的是只包含标签和形成页面结构的元素的节点
+            console.log(document.body.children)
+            //Array.from 方法可以将它转换为真数组
+            console.log(Array.from(document.body.childNodes));
+            //找到元素第一个子节点
+            console.log(document.body.firstChild);
+            //找到元素最后一个子节点
+            console.log(document.body.lastChild)
+            //检查元素是否含有某个子节点
+            console.log(page.hasChildNodes(content));
+            //查找父节点  node返回的是所有节点  包括标签前的空格的文本节点  以及注释节点（若有）等
+            console.log(page.parentNode);
+            //查找父节点   element返回的是只包含标签和形成页面结构的元素的节点
+            //parentElement 属性返回的是“元素类型”的父节点，而 parentNode 返回的是“任何类型”的父节点
+            console.log(page.parentElement)
+            //查找下一个兄弟节点
+            console.log(document.head.nextElementSibling);
+            //查找上一个兄弟节点
+            console.log(document.body.previousElementSibling)
+            //elem.children[0].previousSibling 值一直都是 null?不一定 ，元素节点前可能存在非元素节点
+            console.log(document.body.children[0].previousSibling);
+            //通过id查找
+            console.log(document.getElementById('container'));
+            // querySelector支持所有css选择器能匹配的字符 包括伪类
+            // 返回第一个
+            console.log(document.querySelector('ul>li:last-child'));
+            // 返回所有
+            console.log(document.querySelectorAll('ul>li:last-child'));
+            // 返回鼠标指针现在已经结束的元素的集合（按嵌套顺序：从最外层 <html> 到嵌套最多的元素
+            console.log(document.querySelectorAll(':hover'));
+            //elem.matches(css) 不会查找任何内容，它只会检查 elem 是否与给定的 CSS 选择器匹配。它返回 true 或 false。
+            for(let item of document.body.children){
+                console.log(item.matches('#app'));
+            }
+
+            // //操作HTML特性的方法：
+            // elem.hasAttribute(name);// — 检查是否存在这个特性。
+            // elem.getAttribute(name); //— 获取这个特性值。
+            // elem.setAttribute(name, value);// — 设置这个特性值。
+            // elem.removeAttribute(name); //— 移除这个特性。
+            // elem.attributes// — 所有特性的集合。
+
+            //DOM修改操作
+            //创建元素
+           let div =  document.createElement('div');
+            //创建新节点的方法：
+            // document.createElement(tag) — 用给定的标签创建一个元素节点，
+            // document.createTextNode(value) — 创建一个文本节点（很少使用），
+            // elem.cloneNode(deep) — 克隆元素，如果 deep==true 则与其后代一起克隆。
+            
+           //设置类名  也可使用classList
+           //div.calssList.add('alert'); //classList具有add | remove | toggle方法
+
+            //classList 的方法：
+            // elem.classList.add/remove(class) — 添加/移除类。
+            // elem.classList.toggle(class) — 如果类不存在就添加类，存在就移除它。
+            // elem.classList.contains(class) — 检查给定类，返回 true/false。
+            // classList 是可迭代的
+           div.className = 'alert';
+           //设置内容
+           // 还有 innerText
+           div.innerHTML = `<h1>哈喽</h1>`;
+           //事件绑定
+           div.onclick = function(event){
+            console.log('点击事件',event)
+           }
+
+           //插入元素
+           document.body.append(div);
+          // node.append(...nodes or strings) —— 在 node 末尾 插入节点或字符串，
+          // node.prepend(...nodes or strings) —— 在 node 开头 插入节点或字符串，
+          // node.before(...nodes or strings) —— 在 node 前面 插入节点或字符串，
+          // node.after(...nodes or strings) —— 在 node 后面 插入节点或字符串，
+          // node.replaceWith(...nodes or strings) —— 将 node 替换为给定的节点或字符串。
+          
+          //克隆节点
+          //调用 elem.cloneNode(true) 来创建元素的一个“深”克隆 — 具有所有特性（attribute）和子元素。
+          //调用 elem.cloneNode(false)，那克隆就不包括子元素。
+          let div2 = div.cloneNode(true);
+          div2.querySelector('h1').innerText = 'hello';
+          div.after(div2);//放到div元素的后面
+          
+          // 移除节点
+          setTimeout(() => {
+              div.remove()
+          }, 2000);
+
+        // 元素具有以下几何属性：
+
+        // offsetParent — 是最接近的 CSS 定位的祖先，或者是 td，th，table，body。
+        // offsetLeft/offsetTop — 是相对于 offsetParent 的左上角边缘的坐标。
+        // offsetWidth/offsetHeight — 元素的“外部” width/height，边框（border）尺寸计算在内。
+        // clientLeft/clientTop — 从元素左上角外角到左上角内角的距离。对于从左到右显示内容的操作系统来说，它们始终是左侧/顶部 border 的宽度。而对于从右到左显示内容的操作系统来说，垂直滚动条在左边，所以 clientLeft 也包括滚动条的宽度。
+        // clientWidth/clientHeight — 内容的 width/height，包括 padding，但不包括滚动条（scrollbar）。
+        // scrollWidth/scrollHeight — 内容的 width/height，就像 clientWidth/clientHeight 一样，但还包括元素的滚动出的不可见的部分。
+        // scrollLeft/scrollTop — 从元素的左上角开始，滚动出元素的上半部分的 width/height。
+
+        // 滚动：
+        // 读取当前的滚动：window.pageYOffset/pageXOffset。
+        // 更改当前的滚动：
+        // window.scrollTo(pageX,pageY) — 绝对坐标，
+        // window.scrollBy(x,y) — 相对当前位置进行滚动，
+        // elem.scrollIntoView(top) — 滚动以使 elem 可见（elem 与窗口的顶部/底部对齐）。
+        }
+    </script>
+</body>
+</html>

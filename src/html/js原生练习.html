@@ -1,0 +1,48 @@
+<!--
+ * @Descripttion: 
+ * @Author: GENGMENGWEI
+ * @Date: 2021-05-11 15:40:27
+ * @LastEditTime: 2021-05-11 16:08:43
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .list{
+            color: black;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        window.onload = function(){
+            let httpUrl = 'https://api.apiopen.top/getJoke?page=1&count=10&type=text';
+            fetch(httpUrl)
+            .then(res=>res.json()) // 这里为什么不能用try...catch
+            .then(res =>{
+               console.log(res);
+                if(res.code == 200){
+                    let ul = document.createElement('ul');
+                    for(let index in res.result){
+                        let li = document.createElement('li');
+                        li.innerText = `${index} -- ${res.result[index].text}`;
+                        li.style.color = 'gray';
+                        li.style.listStyle = 'none';
+                        li.classList.add('list');
+                        ul.append(li)
+                    };
+                    document.querySelector('body').append(ul)
+                }
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+        }
+    </script>
+</body>
+</html>
