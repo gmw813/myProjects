@@ -6,8 +6,8 @@
  */
 module.exports = {
     aliCloud:{
-        "accessKeyId": 'LTAI4G1eKyGeBZy44DVDmcYA',
-        "accessKeySecret": 't2Oz88I2iHpoluze8jsEVjUYBelJto',
+        "accessKeyId": '',
+        "accessKeySecret": '',
         "endpoint": 'https://dysmsapi.aliyuncs.com',
         "apiVersion": '2017-05-25'
     }
