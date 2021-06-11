@@ -2,7 +2,7 @@
  * @Descripttion: 
  * @Author: GENGMENGWEI
  * @Date: 2021-05-12 15:09:37
- * @LastEditTime: 2021-05-20 09:32:46
+ * @LastEditTime: 2021-06-11 15:50:21
 -->
 <template>
   <div class="chat_box">
@@ -56,6 +56,10 @@ export default {
 </script>
 
 <style lang="scss">
+.chat_box{
+  height: 450px;
+  overflow: auto;
+}
 img {
   width: 60px;
   height: 60px;

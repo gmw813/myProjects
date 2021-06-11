@@ -12,7 +12,9 @@
     "core-js": "^3.6.5",
     "mockjs": "^1.1.0",
     "socket.io-client": "^4.1.1",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.8",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
